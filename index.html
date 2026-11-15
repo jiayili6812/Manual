@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<!-- manual - landing page. jia, nov 2026. one file, no libraries. -->
+<!--
+     SETUP: the signup in section 5 posts to a Google Form. Fill in
+     FORM_ID and ENTRY_EMAIL at the very bottom of this file. Until
+     you do, a dashed setup note shows above the field and the button
+     is blocked, so no one's email is silently lost.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Manual: understand your devices, not just follow steps</title>
+<meta name="description" content="A personal helper that explains the why, remembers what you've learned, and steps back as you get comfortable.">
+
+<!-- link previews (linkedin, facebook) -->
+<meta property="og:title" content="Manual: understand your devices, not just follow steps">
+<meta property="og:description" content="A personal helper that explains the why, remembers what you've learned, and steps back as you get comfortable.">
+<meta property="og:type" content="website">
+<!-- og:image must be a full https:// address once this is published -
+     a relative path like the one below will not show up on linkedin or
+     facebook. after publishing, change it to something like
+     https://yoursite.com/booklet.jpg -->
+<meta property="og:image" content="booklet.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+/* ---- colors ---- */
+/* white bg, near-black text, classic blue links. the one accent is
+   #73441b, sampled from the dark grain of the wood in booklet.jpg */
+
+body {
+  background: #fff;
+  color: #171717;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 19px;
+  line-height: 1.55;
+  margin: 0;
+  padding: 0 16px 70px 16px;
+}
+
+/* mobile first. one column, centered, capped so the lines stay
+   readable - 50vw on a very wide monitor would run past 120
+   characters a line. */
+.col {
+  max-width: 34em;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 26px;
+}
+
+@media (min-width: 700px) {
+  body { padding: 0 32px 90px 32px; }
+}
+
+@media (min-width: 1000px) {
+  .col { width: 50vw; max-width: 52em; padding-top: 30px; }
+}
+
+h1 {
+  font-size: clamp(30px, 5.4vw, 37px);
+  line-height: 1.2;
+  margin: 0 0 10px 0;
+  font-weight: bold;
+}
+
+/* section headings, buttons, captions and the navs are the
+   supplementary sans. body copy stays Georgia. */
+h2, .cap, .sidenav, .topbar, .who {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h2 {
+  font-size: 25px;
+  line-height: 1.25;
+  margin: 0 0 20px 0;
+  padding-bottom: 7px;
+  border-bottom: 2px solid #73441b;
+  scroll-margin-top: 104px;     /* clears the sticky top bar */
+}
+p { margin: 0 0 12px 0; }
+
+a { color: #0b35d0; }
+a:visited { color: #551a8b; }
+a:hover { background: #ffef9f; }
+a:focus-visible, summary:focus-visible {
+  outline: 3px solid #73441b;
+  outline-offset: 1px;
+}
+
+/* generous air around the rules that divide the four sections */
+hr {
+  border: none;
+  border-top: 1px solid #ded9cf;
+  margin: 52px 0;
+}
+
+.small { font-size: 16px; color: #45403a; }
+
+/* pencil underline under one phrase. two overlapping strokes pushed
+   around by a noise filter, so the edge breaks up like graphite
+   instead of reading as a clean vector line. */
+.scribble {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 12' preserveAspectRatio='none'><filter id='g' x='-10%25' y='-40%25' width='120%25' height='180%25'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' seed='11' result='n'/><feDisplacementMap in='SourceGraphic' in2='n' scale='2.6' xChannelSelector='R' yChannelSelector='G'/></filter><g filter='url(%23g)' fill='none' stroke='%2373441b' stroke-linecap='round'><path d='M4 7 C48 4, 88 9, 128 6 C168 3, 204 8, 236 5' stroke-width='2.4' opacity='0.9'/><path d='M7 9 C54 6, 97 11, 136 8 C173 5, 209 10, 233 7' stroke-width='1.3' opacity='0.45'/><path d='M12 5 C56 3, 84 7, 120 5' stroke-width='0.9' opacity='0.35'/></g></svg>");
+  background-repeat: no-repeat;
+  background-size: 100% 10px;
+  background-position: 0 100%;
+  padding-bottom: 8px;
+  /* so each line of a wrapped headline gets its own squiggle */
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* steps */
+ol.steps { padding-left: 22px; margin: 0 0 12px 0; }
+ol.steps li { margin-bottom: 10px; }
+
+/* ---- the example conversation ----
+   glossy bubbles in the old iphone manner: a vertical sheen, a
+   highlight along the top inside edge, a hairline border and a small
+   drop shadow, with a tail made from a rotated square.
+   manual on the left, you on the right. */
+.talk {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 0 0 14px 0;
+}
+.bub {
+  position: relative;
+  max-width: 78%;
+  padding: 11px 16px;
+  border: 1px solid;
+  border-radius: 19px;
+}
+.bub p { margin: 0; }
+.bub::after {
+  content: "";
+  position: absolute;
+  bottom: 5px;
+  width: 12px;
+  height: 12px;
+  transform: rotate(45deg);
+  border: 1px solid;
+}
+
+/* manual - the silver bubble, on the left */
+.them {
+  align-self: flex-start;
+  background: linear-gradient(#fcfcfc, #d8d8d8);
+  border-color: #b4b4b4;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.9);
+}
+.them::after {
+  left: -5px;
+  background: #d8d8d8;
+  border-color: #b4b4b4;
+  border-width: 0 0 1px 1px;
+}
+
+/* you - the wood-colored bubble, on the right */
+.you {
+  align-self: flex-end;
+  background: linear-gradient(#8a5428, #67390f);
+  border-color: #532d0c;
+  color: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.35);
+}
+.you::after {
+  right: -5px;
+  background: #67390f;
+  border-color: #532d0c;
+  border-width: 0 1px 1px 0;
+}
+
+.who {
+  font-size: 12px;
+  color: #6b655c;
+  margin: 6px 3px 0 3px;
+}
+.you .who { color: #efe4d8; text-align: right; }
+
+/* ---- faq accordion. plain <details>, no javascript ---- */
+.qa { border-top: 1px solid #e2ded5; }
+.qa:last-of-type { border-bottom: 1px solid #e2ded5; }
+.qa summary {
+  cursor: pointer;
+  padding: 13px 34px 13px 0;
+  font-weight: bold;
+  position: relative;
+  list-style: none;
+}
+.qa summary::-webkit-details-marker { display: none; }
+.qa summary::after {
+  content: "+";
+  position: absolute;
+  right: 6px;
+  top: 11px;
+  font-size: 22px;
+  line-height: 1;
+  color: #73441b;
+  font-weight: normal;
+}
+.qa[open] summary::after { content: "\2013"; }
+.qa p { margin: 0 0 14px 0; }
+
+/* photos */
+figure.shot { margin: 0; }
+img {
+  display: block;
+  max-width: 100%;
+  width: 420px;
+  height: auto;
+  margin: 0 0 6px 0;
+  border: 1px solid #ddd6c6;
+}
+.cap { font-size: 14px; color: #5c564a; margin: 0 0 18px 0; line-height: 1.4; }
+
+.row { display: flex; flex-direction: column; }
+
+/* side by side only once the column is wide enough that neither the
+   text nor the photo ends up squeezed. below this they stack. */
+@media (min-width: 1200px) {
+  .row {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .row > .prose { flex: 1 1 auto; min-width: 0; }
+  .row > .shot  { flex: 0 0 36%; }
+  .row .cap { margin-bottom: 0; }
+}
+
+/* ---- the waitlist link. lives in the navs now, not in the page. ---- */
+.navcta {
+  display: inline-block;
+  background: #73441b;
+  border: 1px solid #532d0c;
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 13px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.navcta:visited { color: #fff; }
+.navcta:hover { background: #572f10; }
+
+/* ---- the signup block ---- */
+.join {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-end;
+  margin: 0 0 12px 0;
+}
+.join p { margin: 0; }
+.join label {
+  display: block;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #45403a;
+  margin-bottom: 5px;
+}
+.join input[type=email] {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 18px;
+  width: 17em;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 11px 10px;
+  min-height: 48px;
+  border: 1px solid #6e6756;
+  background: #fff;
+  color: #171717;
+}
+.join button {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  padding: 0 18px;
+  min-height: 48px;
+  border: 1px solid #532d0c;
+  background: #73441b;
+  color: #fff;
+  cursor: pointer;
+}
+.join button:hover { background: #572f10; }
+.join input[type=email]:focus-visible, .join button:focus-visible {
+  outline: 3px solid #73441b;
+  outline-offset: 1px;
+}
+#join-error { color: #8c2f08; font-weight: bold; font-size: 16px; }
+#join-thanks {
+  border: 1px solid #ddd6c6;
+  background: #faf7f1;
+  padding: 12px 14px;
+}
+#join-thanks p { margin: 0; }
+#setup-note {
+  font-size: 15px;
+  color: #7a3414;
+  border: 1px dashed #73441b;
+  padding: 9px 11px;
+  margin: 0 0 14px 0;
+}
+[hidden] { display: none !important; }
+
+/* ---- top bar: the narrow-window nav ---- */
+.topbar .sm { display: none; }
+
+@media (max-width: 430px) {
+  .topbar .lg { display: none; }
+  .topbar .sm { display: inline; }
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: #fff;
+  border-bottom: 1px solid #e2ded5;
+  margin: 0 -16px;
+  padding: 6px 16px;
+}
+.topbar ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+}
+.topbar a:not(.navcta) {
+  color: #4a4136;
+  text-decoration: none;
+  padding: 5px 0;
+  display: block;
+}
+.topbar a:not(.navcta):hover {
+  background: none;
+  color: #73441b;
+  text-decoration: underline;
+}
+.topbar a:not(.navcta):visited { color: #4a4136; }
+.topbar .navcta { margin-left: auto; }
+
+/* ---- side nav, parked in the empty space left of the column.
+   only appears when there is actually empty space to park in. ---- */
+.sidenav { display: none; }
+
+@media (min-width: 1000px) {
+  .topbar { display: none; }
+  h2 { scroll-margin-top: 20px; }
+
+  .sidenav {
+    display: block;
+    position: fixed;
+    top: 30px;
+    left: 26px;
+    width: 10.5em;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .sidenav ul { list-style: none; margin: 0 0 18px 0; padding: 0; }
+  .sidenav li { margin-bottom: 9px; }
+  .sidenav a:not(.navcta) {
+    color: #4a4136;
+    text-decoration: none;
+    border-left: 2px solid #e2ded5;
+    padding: 2px 0 2px 9px;
+    display: block;
+  }
+  .sidenav a:not(.navcta):hover {
+    background: none;
+    color: #73441b;
+    border-left-color: #73441b;
+    text-decoration: underline;
+  }
+  .sidenav a:not(.navcta):visited { color: #4a4136; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- narrow windows: nav across the top, waitlist on the right.
+     each label has a long and a short version so the bar stays on one
+     line on a phone - css swaps them, see .lg / .sm -->
+<div class="topbar">
+<nav aria-label="Page sections">
+<ul>
+  <li><a href="#how"><span class="lg">1. How it works</span><span class="sm">1. How</span></a></li>
+  <li><a href="#example"><span class="lg">2. Example</span><span class="sm">2. Talk</span></a></li>
+  <li><a href="#faq">3. FAQ</a></li>
+  <li><a href="#about">4. Note</a></li>
+</ul>
+</nav>
+<a class="navcta" id="waitlist-top" href="#join"><span class="lg">Join the waitlist</span><span class="sm">Join</span></a>
+</div>
+
+<!-- wide windows: nav down the left margin, waitlist underneath -->
+<nav class="sidenav" aria-label="Page sections">
+<ul>
+  <li><a href="#how">1. How it works</a></li>
+  <li><a href="#example">2. An example</a></li>
+  <li><a href="#faq">3. FAQ</a></li>
+  <li><a href="#about">4. A note from me</a></li>
+</ul>
+<a class="navcta" id="waitlist-side" href="#join">Join the waitlist</a>
+</nav>
+
+<div class="col">
+
+<h1>Manual: understand your devices, <span class="scribble">not just follow steps.</span></h1>
+
+<p>A personal helper that explains the "why," remembers what you've learned,
+and steps back as you get comfortable.</p>
+
+<hr>
+
+<h2 id="how">1. How it works</h2>
+
+<div class="row">
+
+<div class="prose">
+<ol class="steps">
+  <li><b>You get stuck.</b> Open it when you want help. It waits for you to try first.</li>
+  <li><b>It explains.</b> Step by step, or the reason behind it, in plain words. Your choice.</li>
+  <li><b>It steps back.</b> It keeps a private record of what you've learned and offers
+      less help over time.</li>
+</ol>
+
+<p class="small">It's designed so you decide when it's on and what it sees.</p>
+</div>
+
+<figure class="shot">
+<img src="booklet.jpg"
+     width="1200" height="800" loading="lazy"
+     alt="A worn paper instruction booklet lying open on a wooden table, with a phone resting on top of it.">
+<figcaption class="cap">Instructions tell you what to press. They rarely tell you why.</figcaption>
+</figure>
+
+</div>
+
+<hr>
+
+<h2 id="example">2. An example of how it might sound</h2>
+
+<div class="talk">
+
+  <div class="bub you">
+    <p>I'm stuck.</p>
+    <p class="who">You</p>
+  </div>
+
+  <div class="bub them">
+    <p>Want to try first? I'll stay quiet unless you ask.</p>
+    <p class="who">Manual</p>
+  </div>
+
+  <div class="bub you">
+    <p>Can you show me the steps?</p>
+    <p class="who">You</p>
+  </div>
+
+  <div class="bub them">
+    <p>Tap the search tab at the bottom.</p>
+    <p class="who">Manual</p>
+  </div>
+
+  <div class="bub you">
+    <p>Why does it want my account?</p>
+    <p class="who">You</p>
+  </div>
+
+  <div class="bub them">
+    <p>Think of the supermarket checkout. Your account is how the store knows it's you,
+    even for free things.</p>
+    <p class="who">Manual</p>
+  </div>
+
+</div>
+
+<hr>
+
+<h2 id="faq">3. FAQ</h2>
+
+<details class="qa">
+  <summary>Is this available now?</summary>
+  <p>We're still building it. Joining the waitlist puts you first in line for early
+  versions.</p>
+</details>
+
+<details class="qa">
+  <summary>What will you do with my email?</summary>
+  <p>Write to you when there's something to try, and ask a couple of questions if you're
+  up for it. Nothing else, and no one else gets it. Reply to any email and I'll remove
+  you.</p>
+</details>
+
+<details class="qa">
+  <summary>Would it watch everything I do?</summary>
+  <p>It's designed to see or hear anything only when you turn it on, and you choose what
+  to share.</p>
+</details>
+
+<hr>
+
+<h2 id="about">4. A note from me</h2>
+
+<div class="row">
+
+<div class="prose">
+<!-- edit this to match my own words -->
+<p>Hi, I'm Jia, a graduate student at Stanford. I've been talking with people about
+learning to use their phones and computers, and I keep hearing that help tells you what
+to press, not why. I'm exploring whether a helper that explains the why and steps back
+could make a difference. If you tell me one thing you wish someone had explained, that
+helps more than a signup does.</p>
+
+<p>Manual is my student project in Stanford's Learning, Design and Technology program.
+Questions, objections, stories:
+<a href="mailto:jyl668@stanford.edu">jyl668@stanford.edu</a></p>
+</div>
+
+<figure class="shot">
+<img src="steps-card.jpg"
+     width="1200" height="800" loading="lazy"
+     alt="A handwritten index card listing four steps for installing an app, with a line at the bottom explaining why it asks for a password.">
+<figcaption class="cap">People already do this for themselves. That's the thing I'd like to build on.</figcaption>
+</figure>
+
+</div>
+
+<hr>
+
+<h2 id="join">5. Join the waitlist</h2>
+
+<!-- ============================================================
+     Posts straight to a Google Form. No backend, and the page does
+     not navigate away: the form targets the hidden iframe below and
+     the thank you swaps in. Fill in FORM_ID and ENTRY_EMAIL in the
+     script at the bottom of this file.
+     ============================================================ -->
+
+<p id="setup-note"><b>Setup note, only you see this until it's done:</b>
+fill in <code>FORM_ID</code> and <code>ENTRY_EMAIL</code> at the bottom of this file.</p>
+
+<form class="join" id="join-form" method="post" target="join-sink" novalidate>
+  <p>
+    <label for="email">Your email</label>
+    <input type="email" id="email" name="email" required autocomplete="email"
+           placeholder="you@example.com">
+  </p>
+  <p>
+    <button type="submit">Join the waitlist</button>
+  </p>
+</form>
+
+<p id="join-error" role="alert" hidden></p>
+
+<div id="join-thanks" role="status" hidden>
+  <p><b>Thank you &mdash; you're on the list.</b> I'll write when there's something to
+  try, and nothing in between.</p>
+</div>
+
+<p class="small">I'll only use your email to tell you when there's something to try and,
+if you're willing, to ask a couple of questions. I won't share or sell it. Reply to any
+email and I'll remove you.</p>
+
+<noscript>
+<p class="small">This form needs JavaScript. You can email me instead:
+<a href="mailto:jyl668@stanford.edu">jyl668@stanford.edu</a></p>
+</noscript>
+
+<iframe name="join-sink" id="join-sink" title="Form submission target"
+        tabindex="-1" aria-hidden="true" style="display:none"></iframe>
+
+</div>
+
+<script>
+/* ============================================================
+   GOOGLE FORM SETTINGS - the only two values to fill in.
+
+   1. Make a Google Form with ONE question:
+        "Your email"  -  short answer, required
+      In Settings, turn OFF "Collect email addresses" and
+      "Limit to 1 response", so anyone can answer without having
+      to sign in to a Google account.
+
+   2. Send > the link icon > copy the link. It looks like
+        https://docs.google.com/forms/d/e/XXXXXXXX/viewform
+      Paste the XXXXXXXX part as FORM_ID below.
+
+   3. Open that /viewform link, right-click > View Page Source, and
+      search the page for "entry." You will find one number like
+      entry.123456789 - that is the email question. Paste it as
+      ENTRY_EMAIL below, keeping the "entry." prefix.
+
+   4. Submit once yourself and check it arrived in the form's
+      Responses tab. This page shows a thank you as soon as Google
+      replies, but it cannot read that reply, so the thank you is
+      not proof the answer was saved. Test it once.
+   ============================================================ */
+
+var FORM_ID     = "1FAIpQLSfYc8vf7Kj8bm6aDGAcI-bVvLRGdagwW7Qrpz3-CPR9kEwfRg";
+var ENTRY_EMAIL = "entry.1482146044";
+
+/* ---- nothing below here needs editing ---- */
+
+(function () {
+  var form   = document.getElementById("join-form");
+  var email  = document.getElementById("email");
+  var note   = document.getElementById("setup-note");
+  var error  = document.getElementById("join-error");
+  var thanks = document.getElementById("join-thanks");
+  var sink   = document.getElementById("join-sink");
+  if (!form) { return; }
+
+  var ready = FORM_ID.indexOf("PASTE") === -1 &&
+              ENTRY_EMAIL.indexOf("PASTE") === -1;
+
+  if (ready) {
+    form.action = "https://docs.google.com/forms/d/e/" + FORM_ID + "/formResponse";
+    email.name = ENTRY_EMAIL;
+    if (note) { note.hidden = true; }
+  }
+
+  function fail(msg) {
+    if (!error) { return; }
+    error.textContent = msg;
+    error.hidden = false;
+  }
+
+  var sent = false;
+
+  form.addEventListener("submit", function (event) {
+    if (!ready) {
+      event.preventDefault();
+      fail("This form is not connected yet - see the setup note above.");
+      return;
+    }
+    if (!email.value || !email.checkValidity()) {
+      event.preventDefault();
+      fail("Please enter an email address so I know where to write.");
+      email.focus();
+      return;
+    }
+    if (error) { error.hidden = true; }
+    sent = true;
+    /* the post goes into the hidden iframe, so the page stays put */
+  });
+
+  if (sink) {
+    sink.addEventListener("load", function () {
+      if (!sent) { return; }          /* ignore the iframe's first load */
+      form.hidden = true;
+      if (thanks) { thanks.hidden = false; }
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
