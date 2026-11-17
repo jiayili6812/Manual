@@ -11,27 +11,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Manual: understand your devices, not just follow steps</title>
-<meta name="description" content="A personal helper that explains the why, remembers what you've learned, and steps back as you get comfortable.">
+<title>Manual: the manual your phone didn't come with</title>
+<meta name="description" content="Manual explains what's actually in front of you, and why it works that way. It waits for you to try first, and steps back as you need it less.">
 
 <!-- link previews (linkedin, facebook) -->
-<meta property="og:title" content="Manual: understand your devices, not just follow steps">
-<meta property="og:description" content="A personal helper that explains the why, remembers what you've learned, and steps back as you get comfortable.">
+<meta property="og:title" content="Manual: the manual your phone didn't come with">
+<meta property="og:description" content="Manual explains what's actually in front of you, and why it works that way. It waits for you to try first, and steps back as you need it less.">
 <meta property="og:type" content="website">
-<!-- og:image must be a full https:// address once this is published -
-     a relative path like the one below will not show up on linkedin or
-     facebook. after publishing, change it to something like
-     https://yoursite.com/booklet.jpg -->
-<meta property="og:image" content="booklet.jpg">
+<!-- og:image has to be a full https:// address or link previews show no picture -->
+<meta property="og:image" content="https://jiayili6812.github.io/Manual/booklet.jpg">
 <meta name="twitter:card" content="summary_large_image">
 
 <style>
 /* ---- colors ---- */
-/* white bg, near-black text, classic blue links. the one accent is
+/* paper photo bg, near-black text, classic blue links. the one accent is
    #73441b, sampled from the dark grain of the wood in booklet.jpg */
 
 body {
-  background: #fff;
+  background: #f1efe9 url("paper.jpg") center center / cover no-repeat fixed;
   color: #171717;
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 19px;
@@ -320,7 +317,7 @@ img {
   position: sticky;
   top: 0;
   z-index: 5;
-  background: #fff;
+  background: #f1efe9 url("paper.jpg") center center / cover no-repeat fixed;
   border-bottom: 1px solid #e2ded5;
   margin: 0 -16px;
   padding: 6px 16px;
@@ -415,10 +412,10 @@ img {
 
 <div class="col">
 
-<h1>Manual: understand your devices, <span class="scribble">not just follow steps.</span></h1>
+<h1>Most things you have to learn come with a manual. <span class="scribble">Phones don't.</span></h1>
 
-<p>A personal helper that explains the "why," remembers what you've learned,
-and steps back as you get comfortable.</p>
+<p>Manual explains what's actually in front of you, and why it works that way.
+It waits for you to try first, and steps back as you need it less.</p>
 
 <hr>
 
@@ -428,13 +425,17 @@ and steps back as you get comfortable.</p>
 
 <div class="prose">
 <ol class="steps">
-  <li><b>You get stuck.</b> Open it when you want help. It waits for you to try first.</li>
-  <li><b>It explains.</b> Step by step, or the reason behind it, in plain words. Your choice.</li>
-  <li><b>It steps back.</b> It keeps a private record of what you've learned and offers
-      less help over time.</li>
+  <li><b>You get stuck.</b> The app wants an account and you don't know why. The button
+      isn't where the video said it would be. A word comes up you've never seen. Turn
+      Manual on, and it gives you a moment to try first.</li>
+  <li><b>You ask, including why.</b> It tells you which button to press, and also why the
+      app is asking, what happens if you tap it, and what that word means. It explains new
+      things by comparing them to things you already know.</li>
+  <li><b>It steps back.</b> It remembers what you've figured out, so next time it says
+      less and waits longer.</li>
 </ol>
 
-<p class="small">It's designed so you decide when it's on and what it sees.</p>
+<p class="small">You decide when it's on and what it sees.</p>
 </div>
 
 <figure class="shot">
@@ -448,7 +449,7 @@ and steps back as you get comfortable.</p>
 
 <hr>
 
-<h2 id="example">2. An example of how it might sound</h2>
+<h2 id="example">2. What it might sound like</h2>
 
 <div class="talk">
 
@@ -463,23 +464,33 @@ and steps back as you get comfortable.</p>
   </div>
 
   <div class="bub you">
-    <p>Can you show me the steps?</p>
+    <p>It's asking me to make an account. Why does it need that for a free app?</p>
     <p class="who">You</p>
   </div>
 
   <div class="bub them">
-    <p>Tap the search tab at the bottom.</p>
+    <p>Think of the supermarket checkout. The account is how the store knows it's you,
+    even when you're not paying for anything.</p>
     <p class="who">Manual</p>
   </div>
 
   <div class="bub you">
-    <p>Why does it want my account?</p>
+    <p>So where do I do that?</p>
     <p class="who">You</p>
   </div>
 
   <div class="bub them">
-    <p>Think of the supermarket checkout. Your account is how the store knows it's you,
-    even for free things.</p>
+    <p>The blue button near the bottom, the one that says Continue.</p>
+    <p class="who">Manual</p>
+  </div>
+
+  <div class="bub you">
+    <p>Found it.</p>
+    <p class="who">You</p>
+  </div>
+
+  <div class="bub them">
+    <p>I'll remember the checkout idea for next time.</p>
     <p class="who">Manual</p>
   </div>
 
@@ -497,15 +508,14 @@ and steps back as you get comfortable.</p>
 
 <details class="qa">
   <summary>What will you do with my email?</summary>
-  <p>Write to you when there's something to try, and ask a couple of questions if you're
-  up for it. Nothing else, and no one else gets it. Reply to any email and I'll remove
-  you.</p>
+  <p>Write to you when there's something to try. No one else gets it, and you can reply
+  anytime to be removed.</p>
 </details>
 
 <details class="qa">
   <summary>Would it watch everything I do?</summary>
-  <p>It's designed to see or hear anything only when you turn it on, and you choose what
-  to share.</p>
+  <p>No. It's designed to see or hear only when you turn it on, and you choose what to
+  share.</p>
 </details>
 
 <hr>
@@ -515,12 +525,15 @@ and steps back as you get comfortable.</p>
 <div class="row">
 
 <div class="prose">
-<!-- edit this to match my own words -->
-<p>Hi, I'm Jia, a graduate student at Stanford. I've been talking with people about
-learning to use their phones and computers, and I keep hearing that help tells you what
-to press, not why. I'm exploring whether a helper that explains the why and steps back
-could make a difference. If you tell me one thing you wish someone had explained, that
-helps more than a signup does.</p>
+<p>Hi, I'm Jia, a graduate student at Stanford. This autumn I've sat in on tech classes.
+I've surveyed and interviewed people learning their phones, and the family and tutors who
+help them. I've also talked with a researcher who studies this. Two things kept coming up.
+Someone follows every step in class, gets home, and their screen doesn't look like the
+handout. Or someone gets help over the phone and can't remember it after they hang up.</p>
+
+<p>Manual is my attempt at the manual phones never came with. If you tell me one thing
+about your phone you wish someone had explained, that helps me more than a signup
+does.</p>
 
 <p>Manual is my student project in Stanford's Learning, Design and Technology program.
 Questions, objections, stories:
@@ -564,13 +577,8 @@ fill in <code>FORM_ID</code> and <code>ENTRY_EMAIL</code> at the bottom of this 
 <p id="join-error" role="alert" hidden></p>
 
 <div id="join-thanks" role="status" hidden>
-  <p><b>Thank you &mdash; you're on the list.</b> I'll write when there's something to
-  try, and nothing in between.</p>
+  <p><b>Thanks, you're on the list.</b></p>
 </div>
-
-<p class="small">I'll only use your email to tell you when there's something to try and,
-if you're willing, to ask a couple of questions. I won't share or sell it. Reply to any
-email and I'll remove you.</p>
 
 <noscript>
 <p class="small">This form needs JavaScript. You can email me instead:
